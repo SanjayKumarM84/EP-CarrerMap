@@ -79,53 +79,62 @@ def predictMain(inputData):
 
     print("Predicted Job Roles:", filtered_predicted_job_roles)
 
-    return filtered_predicted_job_roles
+    roadmap_df = pd.read_csv('roadmap.csv', sep='}')
+    # print(roadmap_df.head(10))
 
-# # Example input data
-# inputData = {
-#     "Acedamic percentage in Operating Systems": 69,
-#     "percentage in Algorithms": 63,
-#     "Percentage in Programming Concepts": 78,
-#     "Percentage in Software Engineering": 87,
-#     "Percentage in Computer Networks": 94,
-#     "Percentage in Electronics Subjects": 94,
-#     "Percentage in Computer Architecture": 87,
-#     "Percentage in Mathematics": 84,
-#     "Percentage in Communication skills": 61,
-#     "Hours working per day": 9,
-#     "Logical quotient rating": 4,
-#     "hackathons": 0,
-#     "coding skills rating": 4,
-#     "public speaking points": 8,
-#     "can work long time before system?": "yes",
-#     "self-learning capability?": "yes",
-#     "Extra-courses did": "yes",
-#     "certifications": "shell programming",
-#     "workshops": "cloud computing",
-#     "talenttests taken?": "no",
-#     "olympiads": "yes",
-#     "reading and writing skills": "excellent",
-#     "memory capability score": "excellent",
-#     "Interested subjects": "cloud computing",
-#     "interested career area ": "system developer",
-#     "Job/Higher Studies?": "higherstudies",
-#     "Type of company want to settle in?": "Web Services",
-#     "Taken inputs from seniors or elders": "no",
-#     "interested in games": "no",
-#     "Interested Type of Books": "Prayer books",
-#     "Salary Range Expected": "salary",
-#     "In a Realtionship?": "no",
-#     "Gentle or Tuff behaviour?": "stubborn",
-#     "Management or Technical": "Management",
-#     "Salary/work": "salary",
-#     "hard/smart worker": "hard worker",
-#     "worked in teams ever?": "yes",
-#     "Introvert": "no"
-# }
+    # Filter the roadmap dataframe based on the predicted job roles
+    filtered_df = roadmap_df[roadmap_df['Suggested Job Role'].isin(filtered_predicted_job_roles)]
 
-# # Convert the JSON object to string
-# inputDataStr = json.dumps(inputData)
+    # Convert filtered rows to dictionary
+    filtered_records = filtered_df.to_dict(orient='records')
 
-# # Make predictions
-# predicted_job_roles = predictMain(inputData)
-# print("Predicted Job Roles:", predicted_job_roles)
+    return filtered_records
+
+# Example input data
+inputData = {
+    "Acedamic percentage in Operating Systems": 69,
+    "percentage in Algorithms": 63,
+    "Percentage in Programming Concepts": 78,
+    "Percentage in Software Engineering": 87,
+    "Percentage in Computer Networks": 94,
+    "Percentage in Electronics Subjects": 94,
+    "Percentage in Computer Architecture": 87,
+    "Percentage in Mathematics": 84,
+    "Percentage in Communication skills": 61,
+    "Hours working per day": 9,
+    "Logical quotient rating": 4,
+    "hackathons": 0,
+    "coding skills rating": 4,
+    "public speaking points": 8,
+    "can work long time before system?": "yes",
+    "self-learning capability?": "yes",
+    "Extra-courses did": "yes",
+    "certifications": "shell programming",
+    "workshops": "cloud computing",
+    "talenttests taken?": "no",
+    "olympiads": "yes",
+    "reading and writing skills": "excellent",
+    "memory capability score": "excellent",
+    "Interested subjects": "cloud computing",
+    "interested career area ": "system developer",
+    "Job/Higher Studies?": "higherstudies",
+    "Type of company want to settle in?": "Web Services",
+    "Taken inputs from seniors or elders": "no",
+    "interested in games": "no",
+    "Interested Type of Books": "Prayer books",
+    "Salary Range Expected": "salary",
+    "In a Realtionship?": "no",
+    "Gentle or Tuff behaviour?": "stubborn",
+    "Management or Technical": "Management",
+    "Salary/work": "salary",
+    "hard/smart worker": "hard worker",
+    "worked in teams ever?": "yes",
+    "Introvert": "no"
+}
+
+# Convert the JSON object to string
+inputDataStr = json.dumps(inputData)
+
+# Make predictions
+predicted_job_roles = predictMain(inputData)
+print("Predicted Job Roles:", predicted_job_roles)
